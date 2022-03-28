@@ -1,0 +1,71 @@
+beacon_command_register(
+"get-delegation", 
+"Enumerate a given domain for different types of abusable Kerberos Delegation settings."
+"Synopsis: get-delegation [Single option or All] [FQDN].  Current options: Constrained, Unconstrained, ConstrainedProto, RBCD, All. Domain is optional. if not used than the current domain will be checked");
+
+
+
+alias get-delegation {
+
+    $data = substr($0, 15);
+    @args = split(' ', $data); 
+    $type = 0;
+    $domain = "local";
+
+    if(@args[0] iswm "Constrained")
+    {
+      $type = 1;
+    }
+    else if(@args[0] iswm "ConstrainedProto")
+    {
+      $type = 2;
+    }
+    else if(@args[0] iswm "Unconstrained")
+    {
+      $type = 3;
+    }
+    else if(@args[0] iswm "RBCD")
+    {
+      $type = 4;
+    }
+    else if(@args[0] iswm "All")
+    {
+      $type = 5;
+    }
+    if($type = 0)
+    {
+      berror($1,"Error: Not a valid option, use help get-delegation to see current options");
+      return;
+    }
+
+    if(size(@args) == 2)
+    {
+      $domain = @args[1];
+    }
+
+    # figure out the arch of this session
+    $barch  = barch($1);
+    
+    # read in the right BOF file
+    $handle = openf(script_resource("delegation $+ $barch $+ .o"));
+    $bof = readb($handle, -1);
+    closef($handle);
+    if(strlen($bof) < 1)
+	{
+		berror($1,"Error: BOF bin could not be found. Please ensure the compiled BOF (.o file) exists in the same folder as this aggressor script");
+		return;
+	}
+
+    $args   = bof_pack($1, "iZ", $type, $domain);
+  
+
+    btask($1, "Running get-delegation");
+
+    # execute it.
+    beacon_inline_execute($1, $bof, "go", $args);
+   
+
+  #------------------------------------------------------------------------------------------------------------------------------#
+
+
+}
