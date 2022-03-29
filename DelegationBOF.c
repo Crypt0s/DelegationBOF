@@ -315,58 +315,54 @@ VOID FindDelegation(wchar_t* domain, int type)
 		MSVCRT$wcscat(path, domain);
 	}
 	//It didn't like switch
-if (type == 1){
-			BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find Contrained Delegation...\n\n");
-			LdapSearch(myFilter3, path);
-}
-if (type ==2){
-			BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find Contrained Delegation w/ Protocol Transition...\n\n");
-			LdapSearch(myFilter2, path);
-}
-		case 3:
-			BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Finding Unconstrained Delegation...\n\n");
-			LdapSearch(myFilter, path);
-			break;
-		case 4:
-			BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find RBCD...\n\n");
-			LdapSearch(myFilter4, path);
-			break;
-		case 5:
-			BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Finding Unconstrained Delegation...\n\n");
-			LdapSearch(myFilter, path);
-
-			BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find Contrained Delegation w/ Protocol Transition...\n\n");
-			LdapSearch(myFilter2, path);
-
-			BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find Contrained Delegation...\n\n");
-			LdapSearch(myFilter3, path);
-
-			BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find RBCD...\n\n");
-			LdapSearch(myFilter4, path);
-			break;
-		case 6:
-			BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find User SPNs...\n\n");
-			LdapSearch(myFilter5, path);
-			break;
-		case 7:
-			BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find ASREP Accounts...\n\n");
-			LdapSearch(myFilter6, path);
-			break;
-		case 8:
-			BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find User SPNs...\n\n");
-			LdapSearch(myFilter5, path);
-			BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find ASREP Accounts...\n\n");
-			LdapSearch(myFilter6, path);
-			break;
-		default:
-			BeaconPrintf(CALLBACK_ERROR, "\n Not a valid option\n\n");
-			break;
+	if (type == 1){
+		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find Contrained Delegation...\n\n");
+		LdapSearch(myFilter3, path);
 	}
+	else if (type == 2){
+		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find Contrained Delegation w/ Protocol Transition...\n\n");
+		LdapSearch(myFilter2, path);
+	}	
+	else if (type == 3){
+		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Finding Unconstrained Delegation...\n\n");
+		LdapSearch(myFilter, path);
+		}
+	else if (type == 4){
+		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find RBCD...\n\n");
+		LdapSearch(myFilter4, path);
+		}
+	else if (type == 5){
+		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Finding Unconstrained Delegation...\n\n");
+		LdapSearch(myFilter, path);
 
+		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find Contrained Delegation w/ Protocol Transition...\n\n");
+		LdapSearch(myFilter2, path);
+
+		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find Contrained Delegation...\n\n");
+		LdapSearch(myFilter3, path);
+
+		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find RBCD...\n\n");
+		LdapSearch(myFilter4, path);
+		}
+	else if (type == 6){
+		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find User SPNs...\n\n");
+		LdapSearch(myFilter5, path);
+		}
+	else if (type == 7){
+		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find ASREP Accounts...\n\n");
+		LdapSearch(myFilter6, path);
+		}
+	else if (type == 8){
+		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find User SPNs...\n\n");
+		LdapSearch(myFilter5, path);
+		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find ASREP Accounts...\n\n");
+		LdapSearch(myFilter6, path);
+		}
+	else
+	{
+		BeaconPrintf(CALLBACK_ERROR, "\nNot a Valid Option!\n\n");
+	}
 	
-
-
-
 
 }
 
