@@ -314,17 +314,15 @@ VOID FindDelegation(wchar_t* domain, int type)
 	{
 		MSVCRT$wcscat(path, domain);
 	}
-	
-	switch(type)
-	{
-		case 1:
+	//It didn't like switch
+if (type == 1){
 			BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find Contrained Delegation...\n\n");
 			LdapSearch(myFilter3, path);
-			break;
-		case 2:
+}
+if (type ==2){
 			BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find Contrained Delegation w/ Protocol Transition...\n\n");
 			LdapSearch(myFilter2, path);
-			break;
+}
 		case 3:
 			BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Finding Unconstrained Delegation...\n\n");
 			LdapSearch(myFilter, path);
