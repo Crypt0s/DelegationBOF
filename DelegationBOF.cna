@@ -37,7 +37,7 @@ alias get-delegation {
     {
       $type = 5;
     }
-    if($type = 0)
+    if($type == 0)
     {
       berror($1,"Error: Not a valid option, use help get-delegation to see current options");
       return;
@@ -92,7 +92,7 @@ alias get-spns {
     {
       $type = 8;
     }
-    if($type = 0)
+    if($type == 0)
     {
       berror($1,"Error: Not a valid option, use help get-spns to see current options");
       return;
