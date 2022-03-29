@@ -8,7 +8,7 @@ Despite the name, I decided to add in a couple more features since the bulk of t
 
 Clone, run make, add the .cna to your CS client.
 
-### Delegation
+### Delegation Accounts
 run help get-delegation
 
 Syntax: get-delegation [Type] [optional: FQDN]
@@ -17,7 +17,7 @@ Type options : RBCD, Constrained, ConstrainedProto, Unconstrained, All
 
 If no domain is provided, the local domain is used.
 
-### Kerberoast 
+### Kerberoastable Accounts
 run help get-spns
 
 Syntax: get-spns [Type] [optional: FQDN]
