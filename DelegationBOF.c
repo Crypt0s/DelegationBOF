@@ -221,7 +221,10 @@ VOID LdapSearch(wchar_t* myFilter, wchar_t* lpszPathName)
 				}
 				if (col.dwADsType == ADSTYPE_CASE_IGNORE_STRING)
 				{
-					BeaconFormatPrintf(&obj,"[*]%ls : %ls\n", pColumn, col.pADsValues->CaseIgnoreString);
+					for (i = 0; i < col.dwNumValues; i++)
+					{
+						BeaconFormatPrintf(&obj,"[*]%ls : %ls\n", pColumn, col.pADsValues[i].CaseIgnoreString);
+					}
 				}
 
 				if (col.dwADsType == ADSTYPE_LARGE_INTEGER)
