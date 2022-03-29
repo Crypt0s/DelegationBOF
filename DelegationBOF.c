@@ -214,7 +214,7 @@ VOID LdapSearch(wchar_t* myFilter, wchar_t* lpszPathName)
 				{
 					for (i = 0; i < col.dwNumValues; i++)
 					{
-						BeaconFormatPrintf(&obj,"[*]%ls : %ls\n", pColumn, col.pADsValues[i].CaseIgnoreString);
+						BeaconFormatPrintf(&obj,"[*]%ls : %ls\n", pColumn, col.pADsValues[i].DNString);
 
 					}
 
@@ -294,7 +294,11 @@ VOID FindDelegation(wchar_t* domain, int type)
 
 	wchar_t path[50] = L"";
 	MSVCRT$wcscpy(path, L"LDAP://");
-
+	wchar_t* myFilter = L"(&(userAccountControl:1.2.840.113556.1.4.803:=524288)(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))";
+	wchar_t* myFilter2 = L"(&(userAccountControl:1.2.840.113556.1.4.803:=16777216)(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))";
+	wchar_t* myFilter3 = L"(&(msDS-AllowedToDelegateTo=*)(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))";
+	wchar_t* myFilter4 = L"(&(msDS-AllowedToActOnBehalfOfOtherIdentity=*)(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))";
+	
 	if (MSVCRT$wcscmp(domain, L"local") == 0)
 	{
 		BOOL success = GetCurrentDomain(&path);
@@ -309,43 +313,35 @@ VOID FindDelegation(wchar_t* domain, int type)
 	if (type == 1)
 	{
 		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find Contrained Delegation...\n\n");
-		wchar_t* myFilter3 = L"(msDS-AllowedToDelegateTo=*)";
 		LdapSearch(myFilter3, path);
 	}
 	else if (type == 2)
 	{
 		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find Contrained Delegation w/ Protocol Transition...\n\n");
-		wchar_t* myFilter2 = L"(userAccountControl:1.2.840.113556.1.4.803:=16777216)";
 		LdapSearch(myFilter2, path);
 	}
 	else if (type == 3)
 	{
 		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Finding Unconstrained Delegation...\n\n");
-		wchar_t* myFilter = L"(userAccountControl:1.2.840.113556.1.4.803:=524288)";
 		LdapSearch(myFilter, path);
 	}
 	else if (type == 4)
 	{
 		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find RBCD...\n\n");
-		wchar_t* myFilter4 = L"(msds-allowedtoactonbehalfofotheridentity=*)";
 		LdapSearch(myFilter4, path);
 	}
 	else if (type == 5)
 	{
 		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Finding Unconstrained Delegation...\n\n");
-		wchar_t* myFilter = L"(userAccountControl:1.2.840.113556.1.4.803:=524288)";
 		LdapSearch(myFilter, path);
 
 		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find Contrained Delegation w/ Protocol Transition...\n\n");
-		wchar_t* myFilter2 = L"(userAccountControl:1.2.840.113556.1.4.803:=16777216)";
 		LdapSearch(myFilter2, path);
 
 		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find Contrained Delegation...\n\n");
-		wchar_t* myFilter3 = L"(msDS-AllowedToDelegateTo=*)";
 		LdapSearch(myFilter3, path);
 
 		BeaconPrintf(CALLBACK_OUTPUT, "\n[+]Find RBCD...\n\n");
-		wchar_t* myFilter4 = L"(msds-allowedtoactonbehalfofotheridentity=*)";
 		LdapSearch(myFilter4, path);
 	}
 
