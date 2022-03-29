@@ -11,6 +11,7 @@ run help get-delegation
 Syntax: get-delegation [Type] [optional: FQDN]
 
 Type options : RBCD, Constrained, ConstrainedProto, Unconstrained, All
+
 If no domain is provided, the local domain is used.
 
 ## Potential issues
