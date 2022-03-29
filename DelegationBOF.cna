@@ -1,12 +1,12 @@
 beacon_command_register(
 "get-delegation", 
 "Enumerate a given domain for different types of abusable Kerberos Delegation settings.",
-"Synopsis: get-delegation [Single option or All] [FQDN].  Current options: Constrained, Unconstrained, ConstrainedProto, RBCD, All. Domain is optional. if not used than the current domain will be checked");
+"Synopsis: get-delegation [Single option or All] [FQDN].  Current options: Constrained, Unconstrained, ConstrainedProto, RBCD. Domain is optional, if not used then the current domain will be checked");
 
 beacon_command_register(
 "get-spns", 
 "Enumerate a given domain for user accounts with SPNs and ASREP.",
-"Synopsis: get-spns [Single option or All] [FQDN].  Current options: spn, ASREP, All. Domain is optional. if not used than the current domain will be checked");
+"Synopsis: get-spns [Single option or All] [FQDN].  Current options: spn, ASREP. Domain is optional, if not used then the current domain will be checked");
 
 
 
