@@ -8,57 +8,7 @@ beacon_command_register(
 "Enumerate a given domain for user accounts with SPNs and ASREP."
 "Synopsis: get-spns [Single option or All] [FQDN].  Current options: spn, ASREP, All. Domain is optional. if not used than the current domain will be checked");
 
-alias get-spns {
 
-    $data = substr($0, 9);
-    @args = split(' ', $data); 
-    $type = 0;
-    $domain = "local";
-    
-     if(@args[0] iswm "spn")
-    {
-      $type = 6;
-    }
-    else if(@args[0] iswm "ASREP")
-    {
-      $type = 7;
-    }
-    else if(@args[0] iswm "All")
-    {
-      $type = 8;
-    }
-    if($type = 0)
-    {
-      berror($1,"Error: Not a valid option, use help get-spns to see current options");
-      return;
-    }
-    
-     if(size(@args) == 2)
-    {
-      $domain = @args[1];
-    }
-
-    # figure out the arch of this session
-    $barch  = barch($1);
-    
-    # read in the right BOF file
-    $handle = openf(script_resource("delegation $+ $barch $+ .o"));
-    $bof = readb($handle, -1);
-    closef($handle);
-    if(strlen($bof) < 1)
-	{
-		berror($1,"Error: BOF bin could not be found. Please ensure the compiled BOF (.o file) exists in the same folder as this aggressor script");
-		return;
-	}
-
-    $args   = bof_pack($1, "iZ", $type, $domain);
-  
-
-    btask($1, "Running get-spns");
-
-    # execute it.
-    beacon_inline_execute($1, $bof, "go", $args);
-}
 
 alias get-delegation {
 
@@ -120,7 +70,57 @@ alias get-delegation {
     beacon_inline_execute($1, $bof, "go", $args);
    
 
-  #------------------------------------------------------------------------------------------------------------------------------#
 
+}
 
+alias get-spns {
+
+    $data = substr($0, 9);
+    @args = split(' ', $data); 
+    $type = 0;
+    $domain = "local";
+    
+     if(@args[0] iswm "spn")
+    {
+      $type = 6;
+    }
+    else if(@args[0] iswm "ASREP")
+    {
+      $type = 7;
+    }
+    else if(@args[0] iswm "All")
+    {
+      $type = 8;
+    }
+    if($type = 0)
+    {
+      berror($1,"Error: Not a valid option, use help get-spns to see current options");
+      return;
+    }
+    
+     if(size(@args) == 2)
+    {
+      $domain = @args[1];
+    }
+
+    # figure out the arch of this session
+    $barch  = barch($1);
+    
+    # read in the right BOF file
+    $handle = openf(script_resource("delegation $+ $barch $+ .o"));
+    $bof = readb($handle, -1);
+    closef($handle);
+    if(strlen($bof) < 1)
+	{
+		berror($1,"Error: BOF bin could not be found. Please ensure the compiled BOF (.o file) exists in the same folder as this aggressor script");
+		return;
+	}
+
+    $args   = bof_pack($1, "iZ", $type, $domain);
+  
+
+    btask($1, "Running get-spns");
+
+    # execute it.
+    beacon_inline_execute($1, $bof, "go", $args);
 }
